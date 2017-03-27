@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 
 export default class MyIos extends Component {
@@ -21,9 +22,16 @@ export default class MyIos extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>ios</Text>
-            </View>
+            <ScrollView>
+
+                <Image source={require('../drawable/ios.png')}></Image>
+                <Image source={require('../drawable/ios.png')}></Image>
+                <Image source={require('../drawable/ios.png')}></Image>
+                <Image source={require('../drawable/ios.png')}></Image>
+                <Image source={require('../drawable/ios.png')}></Image>
+                <Image source={require('../drawable/ios.png')}></Image>
+
+            </ScrollView>
         );
     }
 }

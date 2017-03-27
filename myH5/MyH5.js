@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 
 export default class MyH5 extends Component{
@@ -19,7 +20,18 @@ export default class MyH5 extends Component{
     render() {
         return (
 
-                <Text>前端</Text>
+            <ScrollView>
+
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+                <Image source={require('../drawable/h5.png')}></Image>
+
+            </ScrollView>
 
         );
     }

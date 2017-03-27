@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 选中未up时 -->
+    <item android:state_pressed="true"><shape>
+            <solid android:color="#DBDBDB" />
+
+            <stroke android:width="1dp" android:color="#DBDBDB" />
+            <!-- 设置边角的圆滑度 -->
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <padding android:left="10dp" android:right="10dp" />
+        </shape></item>
+
+    <!-- 焦点 -->
+    <item android:state_focused="true"><shape>
+            <solid android:color="#00C5CD" />
+
+            <stroke android:width="1dp" android:color="#00C5CD" />
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <padding android:left="10dp" android:right="10dp" />
+        </shape></item>
+
+        
+    <!-- 可用时 -->
+    <item android:state_enabled="true"><shape>
+            <solid android:color="#00C5CD" />
+
+            <stroke android:width="1dp" android:color="#00C5CD" />
+
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <padding android:left="10dp" android:right="10dp" />
+        </shape></item>
+        
+    <!-- 不可用时 -->
+    <item android:state_enabled="false"><shape>
+            <solid android:color="#DBDBDB" />
+
+            <stroke android:width="1dp" android:color="#DBDBDB" />
+
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <padding android:left="10dp" android:right="10dp" />
+        </shape></item>
+        
+     <!-- 无焦点 -->
+    <item><shape>
+            <solid android:color="#00C5CD" />
+
+            <stroke android:width="1dp" android:color="#00C5CD" />
+
+            <corners android:bottomLeftRadius="3dip" android:bottomRightRadius="3dip" android:topLeftRadius="3dip" android:topRightRadius="3dip" />
+
+            <padding android:left="10dp" android:right="10dp" />
+        </shape></item>
+
+</selector>

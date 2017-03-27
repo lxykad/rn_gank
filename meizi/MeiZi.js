@@ -7,38 +7,29 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    ScrollView,
+    ListView
 } from 'react-native';
 
 var ITEM_COUNT = 20;
 
 export default class MeiZi extends Component {
 
-    statics: {
-        title: '<ScrollView>',
-        description: 'Component that enables scrolling through child components.'
-    }
+    static propTypes = {}
 
-    static propTypes = {
-        name: PropTypes.string,
-        age: PropTypes.number,
-        sex: PropTypes.string.isRequired,//表示必须传递
-    }
-
-    static defaultProps = {
-        name: '美女',
-        chui: '变大',
-        fang: '变小'
-    }
+    static defaultProps = {}
 
     constructor(props) {
         super(props)
 
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            size: 50
+            dataSource: ds.cloneWithRows([
+                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+            ]),
+            url: 'http://gank.io/api/data/福利/10/1',
         }
-
-        var url: "http://gank.io/api/data/福利/10/1";
     }
 
     render() {
@@ -46,26 +37,18 @@ export default class MeiZi extends Component {
         return (
             <View >
 
-                <Text style={styles.content} onPress={()=>this.setState({size:this.state.size+10})}>
-                    {this.props.chui}
-                </Text>
 
-                <Text style={{height:100,width:100,backgroundColor:'#00ff00'}}
-                      onPress={()=>{this.setState({size:this.state.size-10})}}>
-                    {this.props.fang}
-                </Text>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={(rowData)=><Text>{rowData}</Text>}
+                />
 
-                <Text style={{width:this.state.size,height:this.state.size,backgroundColor:'#ff0000'}}>
-                    {this.props.name}
-                </Text>
 
             </View>
         );
     }
 
-    getName() {
-        return this.state.size;
-    }
+
 
     loadData() {
         fetch(this.url).then(function (response) {
