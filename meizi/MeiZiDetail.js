@@ -8,10 +8,12 @@ import {
     Text,
     View,
     Image,
-    ScrollView,
-    ListView
+    BackAndroid,
+    ToastAndroid,
+    Navigator,
 } from 'react-native';
 
+var count = 2;
 export default class MeiZiDetail extends Component {
 
     constructor(props) {
@@ -22,25 +24,34 @@ export default class MeiZiDetail extends Component {
         }
     }
 
-    static defaultProps = {
-        url: 'http://7xi8d6.com1.z0.glb.clouddn.com/2017-03-26-17495078_643307445877569_4485136026821459968_n.jpg',
-    }
+    /* static defaultProps = {
+     url: 'http://7xi8d6.com1.z0.glb.clouddn.com/2017-03-26-17495078_643307445877569_4485136026821459968_n.jpg',
+     }*/
 
     render() {
 
         return (
 
             <View>
-                <Text>detail</Text>
-                <Image style={styles.imageStyle} source={{uri:this.pros.url}}/>
-
+                <Image style={styles.imageStyle} source={{uri:this.props.url}}/>
             </View>
 
         );
-
-
     }
 
+    componentDidMount() {
+        BackAndroid.addEventListener('hardwareBackPress', ()=>{
+
+            this.props.navigator.pop();
+
+            return true;
+        });
+    }
+
+    onBackPressed() {
+        alert('back')
+        return true;
+    }
 
 }
 const styles = StyleSheet.create({

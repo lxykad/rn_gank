@@ -88,7 +88,7 @@ export default class MeiZi extends Component {
 
         return (
 
-            <TouchableHighlight onPress={()=>alert(rowData.url)}>
+            <TouchableHighlight onPress={()=>this.onItemClick(rowData.url)}>
 
                 <View style={styles.container}>
                     <Text style={styles.titleStyle}>{rowData.desc}</Text>
@@ -99,6 +99,18 @@ export default class MeiZi extends Component {
 
         )
 
+    }
+
+    onItemClick(url) {
+
+        this.props.navigator.push(
+            {
+                component: MeiZiDetail,
+                passProps: {
+                    url: url
+                },
+            }
+        )
     }
 
 }

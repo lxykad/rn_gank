@@ -16,6 +16,7 @@ import MyAndroid from './myAndroid/MyAndroid';
 import MyIos from './myIos/MyIos';
 import MyH5 from './myH5/MyH5';
 import MyVideo from './video/MyVideo';
+import NavMeizi from './meizi/NavMeizi';
 
 export default class Main extends Component {
 
@@ -27,6 +28,7 @@ export default class Main extends Component {
         }
     }
 
+    //<MeiZi sex="3"/>
     render() {
         return (
             <TabNavigator>
@@ -39,7 +41,7 @@ export default class Main extends Component {
                     renderIcon={() => <Image style={styles.icon} source={require("./drawable/me_normal.png")} />}
                     renderSelectedIcon={() => <Image style={styles.icon} source={require("./drawable/meizi.png")} />}
                     onPress={() => this.setState({ selectedTab: '妹子' })}>
-                    <MeiZi sex="3"/>
+                    <NavMeizi/>
                 </TabNavigator.Item>
 
                 <TabNavigator.Item
