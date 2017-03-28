@@ -19,6 +19,9 @@ import MyVideo from './video/MyVideo';
 
 import NavMeizi from './meizi/NavMeizi';
 import NavAndroid from './myAndroid/NavAndroid';
+import NavIos from './myIos/NavIos';
+import NavH5 from './myH5/NavH5';
+import NavVideo from './video/NavVideo';
 
 export default class Main extends Component {
 
@@ -65,7 +68,7 @@ export default class Main extends Component {
                     renderIcon={() => <Image style={styles.icon} source={require("./drawable/me_normal.png")} />}
                     renderSelectedIcon={() => <Image style={styles.icon} source={require("./drawable/ios.png")} />}
                     onPress={() => this.setState({ selectedTab: 'ios' })}>
-                    <MyIos/>
+                    <NavIos/>
                 </TabNavigator.Item>
 
                 <TabNavigator.Item
@@ -76,7 +79,7 @@ export default class Main extends Component {
                     renderIcon={() => <Image style={styles.icon} source={require("./drawable/me_normal.png")} />}
                     renderSelectedIcon={() => <Image style={styles.icon} source={require("./drawable/h5.png")} />}
                     onPress={() => this.setState({ selectedTab: '前端' })}>
-                    <MyH5/>
+                    <NavH5/>
                 </TabNavigator.Item>
 
                 <TabNavigator.Item
@@ -87,7 +90,7 @@ export default class Main extends Component {
                     renderIcon={() => <Image style={styles.icon} source={require("./drawable/me_normal.png")} />}
                     renderSelectedIcon={() => <Image style={styles.icon} source={require("./drawable/video.png")} />}
                     onPress={() => this.setState({ selectedTab: '休息视频' })}>
-                    <MyVideo/>
+                    <NavVideo/>
                 </TabNavigator.Item>
 
             </TabNavigator>

@@ -8,50 +8,107 @@ import {
     Text,
     View,
     Image,
-    ScrollView
+    ScrollView,
+    ListView,
+    TouchableHighlight
 } from 'react-native';
+
+import CommonDetail from '../Common/CommonDetail';
 
 export default class MyIos extends Component {
 
     constructor(props) {
         super(props)
-        this.state={
-            imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490257276249&di=935742cf9c8bb9e243f74ec6a3fc11cc&imgtype=0&src=http%3A%2F%2Fuploads.yjbys.com%2Fallimg%2F201609%2F3958-1609101IJ4462.jpg',
+
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+        this.state = {
+            dataSource: ds,
+            url: 'http://gank.io/api/data/iOS/20/1',
+            loadSuccess: false,
         }
+
     }
 
     render() {
+        if (!this.state.loadSuccess) {
+            return <Text>loading</Text>
+        }
+
         return (
-            <ScrollView>
 
-                <Image source={require('../drawable/ios.png')}></Image>
-                <Image source={require('../drawable/ios.png')}></Image>
-                <Image source={require('../drawable/ios.png')}></Image>
-                <Image source={require('../drawable/ios.png')}></Image>
-                <Image source={require('../drawable/ios.png')}></Image>
-                <Image source={require('../drawable/ios.png')}></Image>
+            <View >
 
-            </ScrollView>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={(rowData)=>this.rowItem(rowData)}
+                />
+
+            </View>
         );
     }
+
+    rowItem(rowData) {
+
+        return (
+
+            <TouchableHighlight onPress={()=>this.onItemClick(rowData.url)}>
+
+                <View style={styles.container}>
+                    <Text style={styles.titleStyle}>{rowData.desc}</Text>
+                </View>
+
+            </TouchableHighlight>
+
+        )
+
+    }
+
+    componentDidMount() {
+        //组件挂载后，请求网络数据
+        this.loadData();
+    }
+
+    loadData() {
+
+        fetch(this.state.url)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                this.setState({
+                    loadSuccess: true,
+                    dataSource: this.state.dataSource.cloneWithRows(data.results)
+                })
+            })
+            .catch()
+
+    };
+
+    onItemClick(url) {
+
+        this.props.navigator.push(
+            {
+                component: CommonDetail,
+                passProps: {
+                    url: url
+                },
+            }
+        )
+    }
+
 }
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        //flexDirection:'row',
-        paddingTop:10,
-        backgroundColor:'#ffffff',
+        backgroundColor: '#d5d5d5',
+    },
 
-    },
-    image1:{
-        width:100,
-        height:100,
-        marginTop:20,
-    },
-    image2:{
-        width:100,
-        height:100,
-        marginTop:20,
+    titleStyle: {
+        width: '100%',
+        backgroundColor: '#ffffff',
+        padding: 10,
+        marginBottom:5,
     }
 });
 

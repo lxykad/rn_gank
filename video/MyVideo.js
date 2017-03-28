@@ -8,50 +8,58 @@ import {
     Text,
     View,
     Image,
-    ListView
+    ListView,
+    TouchableHighlight
 } from 'react-native';
+
+import CommonDetail from '../Common/CommonDetail';
 
 export default class MyVideo extends Component {
 
     constructor(props) {
         super(props)
+
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
         this.state = {
-            //设置DataSource时，不直接使用原始数据.当原始数据发生改变时，DataSource不会发生改变。
             dataSource: ds,
-            url: 'http://gank.io/api/data/福利/10/1',
-            meizis: [],
+            url: 'http://gank.io/api/data/休息视频/20/1',
             loadSuccess: false,
         }
     }
 
     render() {
-
-
         if (!this.state.loadSuccess) {
-
-            return (
-                <View>
-                    <Text style={styles.textStyle} onPress={()=>{this.loadData()}}>获取数据</Text>
-                    <Text>加载中 loading...</Text>
-                </View>
-            );
+            return <Text>loading</Text>
         }
 
-
         return (
-            //renderRow={(rowData)=><Text style={styles.rowStyle}>{rowData._id}</Text>}
-            <View>
+
+            <View >
 
                 <ListView
                     dataSource={this.state.dataSource}
-                    renderRow={(rowData)=> <Image source={{uri:rowData.url}} style={styles.imageStyle}/>}
+                    renderRow={(rowData)=>this.rowItem(rowData)}
                 />
 
             </View>
-
-
         );
+    }
+
+    rowItem(rowData) {
+
+        return (
+
+            <TouchableHighlight onPress={()=>this.onItemClick(rowData.url)}>
+
+                <View style={styles.container}>
+                    <Text style={styles.titleStyle}>{rowData.desc}</Text>
+                </View>
+
+            </TouchableHighlight>
+
+        )
+
     }
 
     componentDidMount() {
@@ -59,56 +67,49 @@ export default class MyVideo extends Component {
         this.loadData();
     }
 
-    // dataSource: this.state.dataSource.cloneWithRows(responseData.results)
     loadData() {
+
         fetch(this.state.url)
-            .then((response) => response.json())
-            .then((responseData) => {
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
                 this.setState({
                     loadSuccess: true,
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.results)
-
-                });
-                //请求数据成功，更新datasou
-
-                console.log("==========" + responseData.results);
+                    dataSource: this.state.dataSource.cloneWithRows(data.results)
+                })
             })
-            .catch((error) => {
-                console.log("======error====" + error);
-            });
+            .catch()
+
+    };
+
+    onItemClick(url) {
+
+        this.props.navigator.push(
+            {
+                component: CommonDetail,
+                passProps: {
+                    url: url
+                },
+            }
+        )
     }
+
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        backgroundColor: '#d5d5d5',
     },
-    textStyle: {
-        color: "#999999",
-        fontSize: 14,
-        width: 80,
-        height: 80,
-        backgroundColor: '#39c6c1',
-    },
-    listStyle: {
-        marginTop: 10
-    },
-    rowStyle: {
-        width: '100%',
-        backgroundColor: '#d1d1d1',
-        height: 80,
-        borderBottomColor: '#ff0000',
-        borderBottomWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
 
-    },
-    imageStyle: {
+    titleStyle: {
         width: '100%',
-        height: 200,
+        backgroundColor: '#ffffff',
+        padding: 10,
+        marginBottom:5,
     }
-
 });
+
+
 
 AppRegistry.registerComponent('MyVideo', () => MyVideo);
