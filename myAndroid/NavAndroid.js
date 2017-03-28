@@ -13,18 +13,15 @@ import {
     StatusBar
 } from 'react-native';
 
-import MeiZi from './MeiZi';
+import MyAndroid from './MyAndroid'
 
-export default class NavMeizi extends Component {
-
+export default class NavAndroid extends Component {
     render() {
         return (
-
             <Navigator
-                initialRoute={{component: MeiZi}}
+                initialRoute={{component: MyAndroid}}
                 configureScene={this.configureScene}
                 renderScene={this.renderScene}/>
-
         );
     }
 
@@ -39,4 +36,6 @@ export default class NavMeizi extends Component {
 
 }
 
-AppRegistry.registerComponent('NavMeizi', () => NavMeizi);
+AppRegistry.registerComponent('NavAndroid', () => NavAndroid);
+
+

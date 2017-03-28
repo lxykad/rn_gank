@@ -11,6 +11,7 @@ import {
     BackAndroid,
     ToastAndroid,
     Navigator,
+    StatusBar
 } from 'react-native';
 
 var count = 2;
@@ -33,6 +34,11 @@ export default class MeiZiDetail extends Component {
         return (
 
             <View>
+                <StatusBar
+                    backgroundColor="#00000000"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <Image style={styles.imageStyle} source={{uri:this.props.url}}/>
             </View>
 
@@ -40,17 +46,12 @@ export default class MeiZiDetail extends Component {
     }
 
     componentDidMount() {
-        BackAndroid.addEventListener('hardwareBackPress', ()=>{
+        BackAndroid.addEventListener('hardwareBackPress', () => {
 
             this.props.navigator.pop();
 
             return true;
         });
-    }
-
-    onBackPressed() {
-        alert('back')
-        return true;
     }
 
 }
