@@ -31,6 +31,8 @@ export default class MeiZi extends Component {
 
     static defaultProps = {}//默认props
 
+    totalList = [];
+
     constructor(props) {
         super(props)
 
@@ -39,6 +41,8 @@ export default class MeiZi extends Component {
             dataSource: ds,
             url: 'http://gank.io/api/data/福利/10/1',
             loadSuccess: false,
+            isLoadingMore: false,
+            url2: 'http://gank.io/api/data/福利/10/2',
 
         }
     }
@@ -57,6 +61,7 @@ export default class MeiZi extends Component {
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={(rowData)=>this.rowItem(rowData)}
+                    onEndReached={()=>this.onLoadMore()}
                 />
 
             </View>
@@ -65,24 +70,49 @@ export default class MeiZi extends Component {
 
     componentDidMount() {
         //组件挂载后，请求网络数据
-        this.loadData();
+        this.loadData(this.state.url);
     }
 
-    loadData() {
+    loadData(url) {
 
-        fetch(this.state.url)
+        fetch(url)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
+                this.totalList = data.results;
+
                 this.setState({
                     loadSuccess: true,
-                    dataSource: this.state.dataSource.cloneWithRows(data.results)
+                    dataSource: this.state.dataSource.cloneWithRows(this.totalList),
                 })
             })
             .catch()
 
     };
+
+    //分页
+    onLoadMore() {
+        //alert("loadMore")
+        fetch(this.state.url2)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                let list = data.results;
+
+                for (var i = 0; i < list.length; i++) {
+                    this.totalList.push(list[i]);
+                }
+
+                this.setState({
+                    loadSuccess: true,
+                    dataSource: this.state.dataSource.cloneWithRows(this.totalList)
+                })
+            })
+            .catch()
+    }
+
 
     rowItem(rowData) {
 
@@ -112,6 +142,8 @@ export default class MeiZi extends Component {
             }
         )
     }
+
+
 
 }
 const styles = StyleSheet.create({
