@@ -14,7 +14,6 @@ import {
     StatusBar
 } from 'react-native';
 
-var count = 2;
 export default class MeiZiDetail extends Component {
 
     constructor(props) {

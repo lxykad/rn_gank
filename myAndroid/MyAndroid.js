@@ -93,7 +93,7 @@ export default class MyAndroid extends Component {
             {
                 component: CommonDetail,
                 passProps: {
-                    url: url
+                    url: url,
                 },
             }
         )
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#ffffff',
         padding: 10,
-        marginBottom:5,
+        marginBottom: 5,
     }
 });
 

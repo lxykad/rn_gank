@@ -9,16 +9,18 @@ import {
     Text,
     View,
     Image,
-    ListView,
     TouchableHighlight,
     BackAndroid,
     Navigator,
     StatusBar,
-    WebView
+    WebView,
+    BackHandler
 } from 'react-native';
 
-var DEFAULT_URL = 'http://www.lcode.org';
-export default class CommonDetail extends Component {
+import BackBaseComponent from '../components/BackBaseComponent'
+import TitleWithBack from '../components/TitleWithBack'
+
+export default class CommonDetail extends BackBaseComponent {
 
     constructor(props) {
         super(props)
@@ -32,37 +34,31 @@ export default class CommonDetail extends Component {
 
         return (
 
-
-            <WebView
-                ref="webview"
-                source={{uri:this.props.url}}
-                automaticallyAdjustContentInsets={false}
-                decelerationRate="normal"
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                scalesPageToFit={false}
-                startInLoadingState={true}
-            />
-
+            <View style={styles.container}>
+                <TitleWithBack title={this.props.url} onBackPress={this._handleBack.bind(this)} />
+                <WebView
+                    ref="webview"
+                    source={{uri:this.props.url}}
+                    automaticallyAdjustContentInsets={false}
+                    decelerationRate="normal"
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    scalesPageToFit={false}
+                    startInLoadingState={true}
+                />
+            </View>
         );
 
     }
-
-    componentDidMount() {
-        BackAndroid.addEventListener('hardwareBackPress', () => {
-
-            this.props.navigator.pop();
-
-            return true;
-        });
-    }
-
 
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex:1,
         backgroundColor: '#d5d5d5',
+
+
     },
     webViewStyle: {
         width: '100%',
